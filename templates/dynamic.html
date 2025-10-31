@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="padding: 20px;">
+    <h2>{{ prod_title }}</h2>
+
+    {% if products and products|length > 0 %}
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        {% for key in products[0].keys() %}
+                        <th>{{ key }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        {% for value in product.values() %}
+                        <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <p style="text-align: center; color: #C71585; font-size: 12pt; margin-top: 20px;">
+            Найдено товаров: {{ products|length }}
+        </p>
+    {% else %}
+        <div class="error-message">
+            🕯️ Нет данных для отображения
+        </div>
+    {% endif %}
+
+    <!-- Дублируем кнопки навигации внизу -->
+    <div class="navigation">
+        <<a href="{{ url_for('queries_bp.queries_handler') }}" class="menu-button">
+            😈 Новый поиск
+        </a>
+        <a href="{{ url_for('menu_bp.main_menu') }}" class="menu-button nav-button">
+            🏚️ Главное меню
+        </a>
+    </div>
+</div>
+{% endblock %}

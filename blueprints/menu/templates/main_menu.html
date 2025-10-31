@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 50px 20px;">
+    <h2>Хэллоуинские закупочки 🎃</h2>
+    <p style="font-size: 16pt; color: #FFF5EE; margin-bottom: 40px;">Страшная система 😱</p>
+
+    <div class="navigation">
+        <p style="font-size: 14pt; color: #666; margin-bottom: 30px;">Выберите действие:</p>
+
+        <a href="{{ url_for('queries_bp.queries_handler') }}" class="menu-button">
+            🔮 Поиск информации
+        </a>
+
+        <br>
+        <a href="{{ url_for('auth_bp.logout_handler') }}" class="menu-button exit-button">
+            🗡️ Выход из системы
+        </a>
+    </div>
+</div>
+{% endblock %}

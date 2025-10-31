@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 30px 20px;">
+    <h2>Вход в систему</h2>
+
+    <div class="form-container">
+        <form action="{{ url_for('auth_bp.login_result_handler') }}" method="post">
+            <div style="margin: 20px 0;">
+                <label for="login" class="form-label">Логин:</label>
+                <input type="text" id="login" name="login" required
+                       class="form-input" placeholder="Введите ваш логин">
+            </div>
+
+            <div style="margin: 20px 0;">
+                <label for="password" class="form-label">Пароль:</label>
+                <input type="password" id="password" name="password" required
+                       class="form-input" placeholder="Введите ваш пароль">
+            </div>
+
+            {% if error_message %}
+            <div class="error-message" style="margin: 15px 0;">
+                {{ error_message }}
+            </div>
+            {% endif %}
+
+            <div style="margin: 30px 0;">
+                <button type="submit" class="menu-button" style="width: 100%;">
+                    🔑 Войти
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+{% endblock %}
