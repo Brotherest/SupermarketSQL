@@ -2,19 +2,30 @@
 
 {% block content %}
 <div style="text-align: center; padding: 50px 20px;">
-    <h2>Хэллоуинские закупочки 🎃</h2>
-    <p style="font-size: 16pt; color: #FFF5EE; margin-bottom: 40px;">Страшная система 😱</p>
+    <h2>🏪 Супермаркет</h2>
+    <p style="font-size: 16pt; color: #ffffff; margin-bottom: 40px;">Информационная система</p>
 
     <div class="navigation">
         <p style="font-size: 14pt; color: #666; margin-bottom: 30px;">Выберите действие:</p>
 
-        <a href="{{ url_for('queries_bp.queries_handler') }}" class="menu-button">
-            🔮 Поиск информации
+        <a href="{{ url_for('products_bp.product_handler') }}" class="menu-button">
+            Поиск товаров по категории
         </a>
+
+        {% if session.user.role == 'admin' %}
+        <br>
+        <a href="{{ url_for('reports_bp.report_handler') }}" class="menu-button">
+            🔍 Просмотр отчетов
+        </a>
+        <br>
+        <a href="{{ url_for('reports_bp.add_report_handler') }}" class="menu-button">
+            ☦️ Добавить отчет
+        </a>
+        {% endif %}
 
         <br>
         <a href="{{ url_for('auth_bp.logout_handler') }}" class="menu-button exit-button">
-            🗡️ Выход из системы
+            🚪 Выход из системы
         </a>
     </div>
 </div>

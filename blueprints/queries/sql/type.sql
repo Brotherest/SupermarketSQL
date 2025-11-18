@@ -1,2 +1,2 @@
 select * from product
-where prod_id = %s
+where prod_category = %s

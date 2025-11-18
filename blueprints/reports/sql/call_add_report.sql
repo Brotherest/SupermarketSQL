@@ -1,0 +1,1 @@
+CALL AddReport(%s, %s, @result);

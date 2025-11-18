@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from database.select import select_list, select_dict
+from database.select import select_dict
 
 
 @dataclass
@@ -9,7 +9,7 @@ class ProductInfoResponse:
     status: bool
 
 
-def model_route(db_config, user_input_data, sql_provider):
+def model_product_route(db_config, user_input_data, sql_provider):
     error_message = ''
 
     if 'prod_category' not in user_input_data:

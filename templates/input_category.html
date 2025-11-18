@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 30px 20px;">
+    <h2>🔍 Поиск товаров по категории</h2>
+
+    <div class="form-container">
+        <form action="{{ url_for('products_bp.product_result_handler') }}" method="post">
+            <div style="margin: 20px 0;">
+                <label for="prod_category" class="form-label">Введите номер категории:</label>
+                <input type="text" id="prod_category" name="prod_category" required
+                       class="form-input" placeholder="Например: 1, 2, 3...">
+            </div>
+
+            <div style="margin: 30px 0;">
+                <button type="submit" class="menu-button" style="width: 100%;">
+                    🔎 Найти товары
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="navigation">
+        <a href="{{ url_for('menu_bp.main_menu') }}" class="menu-button nav-button">🏠 Главное меню</a>
+    </div>
+</div>
+{% endblock %}
