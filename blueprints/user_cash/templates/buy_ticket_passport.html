@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="display: flex; gap: 20px; padding: 20px;">
+
+    <!-- Основная колонка -->
+    <div style="flex: 3; text-align: center;">
+        <h2>✈️ Подтверждение билета</h2>
+
+        <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; margin: 20px auto; max-width: 600px;">
+            <h3>Рейс № {{ flight.flight_id }}</h3>
+            <p><b>{{ flight.info.departure_town }}</b> → <b>{{ flight.info.arrival_town }}</b></p>
+            <p>Дата: {{ flight.info.departure_date }}</p>
+            <p>Авиакомпания: {{ flight.info.airline }}</p>
+            <p>Прибытие: {{ flight.info.arrival_time }}</p>
+            <p>Тип билета: <b>{{ flight.type|capitalize }}</b></p>
+            <p>Цена: 
+                {% if flight.type == 'economy' %}
+                    {{ flight.info.low_cost }} ₽
+                {% else %}
+                    {{ flight.info.high_cost }} ₽
+                {% endif %}
+            </p>
+
+            <form method="post">
+                <div style="margin: 20px 0;">
+                    <label for="passport">Введите паспорт:</label>
+                    <input type="number" id="passport" name="passport" required placeholder="101">
+                </div>
+
+                <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                    <button type="submit" name="action" value="order" class="menu-button">✅ Заказать</button>
+                    <button type="submit" name="action" value="cancel" class="menu-button">❌ Отмена</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Корзина справа -->
+    <div style="flex: 1; border: 1px solid #ccc; border-radius: 10px; padding: 15px; height: fit-content;">
+        <h4>🛒 Ваша корзина</h4>
+
+        {% if cart %}
+            <ul style="list-style: none; padding: 0;">
+            {% for item in cart %}
+                <li style="border-bottom: 1px solid #ddd; margin-bottom: 10px; padding-bottom: 5px;">
+                    {{ item.type|capitalize }} <br>
+                    {{ item.info.departure_town }} → {{ item.info.arrival_town }} <br>
+                    Дата: {{ item.info.departure_date }}
+                </li>
+            {% endfor %}
+            </ul>
+
+            <form method="post" action="{{ url_for('user_buy_ticket_bp.finalize_cart') }}">
+                <button type="submit" class="menu-button" style="width: 100%; margin-top: 10px;">
+                    🛫 Оформить все билеты
+                </button>
+            </form>
+        {% else %}
+            <p>Корзина пуста</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

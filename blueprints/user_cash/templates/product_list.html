@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="display: flex; gap: 20px; padding: 20px;">
+
+    <!-- Основная колонка с товарами -->
+    <div style="flex: 3;">
+
+        <h2 style="text-align:center;">🛍 Доступные товары</h2>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div style="margin: 10px 0; color: green; text-align:center;">
+                    {% for msg in messages %}
+                        <p>{{ msg }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% if products|length == 0 %}
+            <p style="text-align:center;">❌ Товары не найдены</p>
+        {% endif %}
+
+        {% for p in products %}
+        <div style="border: 1px solid #ccc; border-radius: 10px; padding: 15px; margin: 20px auto; max-width: 600px;">
+
+            <h3>{{ p.prod_name }}</h3>
+
+            <p><b>ID:</b> {{ p.prod_id }}</p>
+            <p><b>Категория:</b> {{ p.prod_category }}</p>
+            <p><b>Ед. измерения:</b> {{ p.prod_measure }}</p>
+            <p><b>Цена:</b> {{ p.prod_price }} ₽</p>
+            <p><b>Доступно на складе:</b> {{ p.prod_max }}</p>
+
+            <form action="{{ url_for('user_shop_bp.add_to_cart', prod_id=p.prod_id) }}" method="post">
+                <button type="submit" class="menu-button">🛒 Добавить в корзину</button>
+            </form>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <!-- Корзина справа -->
+    <div style="flex: 1; border: 1px solid #ccc; border-radius: 10px; padding: 15px; height: fit-content;">
+        <h4>🛒 Ваша корзина</h4>
+
+        {% if cart %}
+            <ul style="list-style: none; padding: 0;">
+            {% for item in cart %}
+                <li style="border-bottom: 1px solid #ddd; margin-bottom: 10px; padding-bottom: 5px;">
+                    <b>{{ item.info.prod_name }}</b><br>
+                    {{ item.info.prod_category }}<br>
+                    Цена: {{ item.info.prod_price }} ₽
+                </li>
+            {% endfor %}
+            </ul>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                <!-- Кнопка оформления покупки -->
+                <form method="post" action="{{ url_for('user_shop_bp.checkout') }}">
+                    <button type="submit" class="menu-button" style="width: 100%;">💳 Оплатить</button>
+                </form>
+
+                <!-- Кнопка очистки корзины -->
+                <form method="post" action="{{ url_for('user_shop_bp.clear_cart') }}">
+                    <button type="submit" class="menu-button" style="width: 100%; background-color: #f44336; color: white;">
+                        🗑 Очистить корзину
+                    </button>
+                </form>
+            </div>
+
+        {% else %}
+            <p>Корзина пуста</p>
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="navigation" style="margin-top: 20px; text-align:center;">
+    <a href="{{ url_for('user_shop_bp.products_get') }}" class="menu-button nav-button">🔙 Назад к поиску</a>
+</div>
+{% endblock %}
