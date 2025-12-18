@@ -1,0 +1,2 @@
+CALL AddReport(%s, %s);
+
