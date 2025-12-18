@@ -6,6 +6,7 @@ from blueprints.auth.route import auth_bp
 from blueprints.menu.route import menu_bp
 from blueprints.queries.route import products_bp
 from blueprints.user_cash.route import user_shop_bp
+from blueprints.reports.route import reports_bp
 
 app = Flask(__name__)
 
@@ -19,6 +20,7 @@ app.register_blueprint(menu_bp)
 app.register_blueprint(products_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(user_shop_bp)
+app.register_blueprint(reports_bp)
 
 
 @app.errorhandler(404)

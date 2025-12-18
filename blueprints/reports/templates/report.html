@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; padding: 20px;">
+    <h2>📊 Отчёт по продажам</h2>
+
+    <div class="form-container" style="margin-top: 20px;">
+        <form action="{{ url_for('reports_bp.reports_handler') }}" method="post">
+            <div style="margin: 15px 0;">
+                <label for="month" class="form-label">Месяц (1-12):</label>
+                <input type="number" id="month" name="month" class="form-input" min="1" max="12" required>
+            </div>
+
+            <div style="margin: 15px 0;">
+                <label for="year" class="form-label">Год (например 2025):</label>
+                <input type="number" id="year" name="year" class="form-input" min="1900" max="2100" required>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="submit" name="action" value="add" class="menu-button">Сформировать отчёт</button>
+                <button type="submit" name="action" value="get" class="menu-button">Получить отчёт</button>
+            </div>
+        </form>
+
+        {% if error_message %}
+            <div class="error-message">
+                {{ error_message }}
+            </div>
+        {% endif %}
+
+        {% if success_message %}
+            <div style="background: rgba(144, 238, 144, 0.9); border: 2px solid #228B22; border-radius: 15px; padding: 30px; margin: 30px 0; text-align: center; font-size: 16pt; color: #006400; font-weight: bold;">
+                {{ success_message }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="navigation" style="margin-top: 20px;">
+        <a href="{{ url_for('menu_bp.main_menu') }}" class="menu-button nav-button">🏠 Главное меню</a>
+    </div>
+</div>
+{% endblock %}
+

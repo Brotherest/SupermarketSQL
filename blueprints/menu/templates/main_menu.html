@@ -15,6 +15,9 @@
             Корзина
         </a>
         {% if session.user.role == 'admin' %}
+        <a href="{{ url_for('reports_bp.reports_input') }}" class="menu-button">
+            Отчёты
+        </a>
         {% endif %}
 
         <br>
